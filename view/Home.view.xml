@@ -1,0 +1,45 @@
+<mvc:View
+        xmlns:html="http://www.w3.org/1999/xhtml"
+        xmlns:mvc="sap.ui.core.mvc"
+	    xmlns:l="sap.ui.layout"
+	    xmlns:f="sap.ui.layout.form"
+	    xmlns:lab="openui5.camera"
+	    xmlns:core="sap.ui.core"
+	    xmlns="sap.m"
+        controllerName="Camera.controller.Home"
+        displayBlock="true">
+	<App>
+        <l:DynamicSideContent
+                class="sapUiDSCExplored sapUiContentPadding"
+                sideContentFallDown="BelowM"
+                containerQuery="true"
+                showSideContent="true">
+                <lab:Camera
+                	class="Camera"
+                    id="idCamera"
+                    width="100%"
+                    height="100%"
+                    snapshot=".onSnapshot"
+                    singleShotMode="false" />
+                <Switch id="SW-1" class="switchPosition" state="true" customTextOn="ON" customTextOff="OFF" change=".onSwitchCamera"></Switch>
+                <Button id="buttonUndoSnapshot" icon="sap-icon://action" text="{i18n>undosnap}" press="onUndoSnapshot" />
+                <List
+                    headerText="Snapshots"
+                    growing="false"
+                    items="{
+                           path: '/photos'
+                           }"
+                    noDataText="{i18n>nophotos}">
+                    <CustomListItem>
+                        <Image
+                            src="{src}"
+                            densityAware="false"
+                            height="100px" 
+                            press="onSavePicture">
+                        </Image>
+                        <Text text="{i18n>caption}"/>
+                    </CustomListItem>
+                </List>
+        </l:DynamicSideContent>
+	</App>
+</mvc:View>
