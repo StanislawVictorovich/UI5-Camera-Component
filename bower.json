@@ -1,0 +1,31 @@
+{
+  "name": "UI5-Camera-Component",
+  "description": "Use the device's camera in your UI5 app",
+  "license": "MIT",
+  "keywords": [
+    "camera",
+    "openui5",
+    "sapui5",
+    "javascript"
+  ],
+  "moduleType": [
+    "amd"
+  ],
+  "homepage": "https://github.com/StanislawVictorovich/UI5-Camera-Component",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "example"
+  ],
+  "authors": [ ],
+  "dependencies": {
+    "openui5-sap.ui.core": "openui5/packaged-sap.ui.core",
+    "openui5-sap.m": "openui5/packaged-sap.m",
+    "openui5-themelib_sap_belize": "openui5/packaged-themelib_sap_belize",
+    "openui5-sap.ui.layout": "openui5/packaged-sap.ui.layout"
+  },
+  "resolutions": {
+    "openui5-sap.ui.core": "1.46.12"
+  }
+}
