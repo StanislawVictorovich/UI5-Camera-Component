@@ -1,6 +1,14 @@
-.Camera {
+.camera {
 	position: fixed;
-    width: 100%;
-    height: 100%;
-    margin: -70px 0 0 -15px;
+	top: 0;
+    left: 0;
+}
+.listItem {
+	background: none;
+	border: none;
+}
+.list {
+	position: fixed;
+	top: 100px;
+	left: 20px;
 }

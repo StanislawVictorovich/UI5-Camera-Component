@@ -8,7 +8,11 @@ sap.ui.define([
 	return UIComponent.extend("Camera.Component", {
 
 		metadata: {
-			manifest: "json"
+			manifest: "json",
+			"properties": { 
+				"width": "600",
+	            "height": "800"
+	        }
 		},
 
 		/**

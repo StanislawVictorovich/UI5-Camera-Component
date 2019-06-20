@@ -6,10 +6,12 @@ sap.ui.define([
 
 	return Controller.extend("Camera.controller.Home", {
 
-		onInit: function() {
-			this.getView().setModel( new JSONModel({
+		onInit: function () {
+			var oJsonModel = new JSONModel({
                 photos: []
-            }) );
+            })
+			
+			this.getView().setModel(oJsonModel);
             this.byId("buttonUndoSnapshot").setEnabled(false);
 		},
 
@@ -21,6 +23,7 @@ sap.ui.define([
         onSnapshot: function (oEvent) {
             var oModel = this.getView().getModel();
             var oPhotos = oModel.getProperty("/photos");
+            
             oPhotos.push({src: oEvent.getParameter("image")});
             oModel.setProperty("/photos", oPhotos);
             this.byId("buttonUndoSnapshot").setEnabled(true);
@@ -34,7 +37,12 @@ sap.ui.define([
          */		
 		onSwitchCamera: function (oEvent) {
 			var oCamera = this.getView().byId("idCamera");
-			!oEvent.getParameters().state ? oCamera.stopCamera() : oCamera.rerender();
+			
+			if (!oEvent.getParameters().state) { 
+				oCamera.stopCamera();
+			} 
+				
+			oCamera.rerender();
 		},
 		
         /**
@@ -45,12 +53,14 @@ sap.ui.define([
 		onUndoSnapshot: function (oEvent) {
             var oModel = this.getView().getModel();
 			var oPhotos = oModel.getProperty("/photos");
+			
 			oPhotos.splice(0,1);
+			
 			if (!oPhotos.length) {
 				oEvent.getSource().setEnabled(false);
-			} else {
-				oEvent.getSource().setEnabled(true);
 			}
+			
+			oEvent.getSource().setEnabled(true);
 			oModel.refresh(true);
 		},
 		
@@ -61,6 +71,7 @@ sap.ui.define([
          */			
 		onSavePicture: function (oEvent) {
 			var download = document.createElement("a");
+			
 			download.href = oEvent.getSource().getSrc();
 			download.download = "image"+(Math.floor(Math.random() * (8999)) + 1000)+".png";
 			download.click();
