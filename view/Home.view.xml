@@ -24,7 +24,6 @@
                 <Switch id="SW-1" class="switchPosition" state="true" customTextOn="ON" customTextOff="OFF" change=".onSwitchCamera"></Switch>
                 <Button id="buttonUndoSnapshot" icon="sap-icon://action" text="{i18n>undosnap}" press="onUndoSnapshot" />
                 <List
-                    headerText="Snapshots"
                     growing="false"
                     items="{
                            path: '/photos'
@@ -37,7 +36,6 @@
                             height="100px" 
                             press="onSavePicture">
                         </Image>
-                        <Text text="{i18n>caption}"/>
                     </CustomListItem>
                 </List>
         </l:DynamicSideContent>
