@@ -6,12 +6,12 @@ sap.ui.define([
 
 	return Controller.extend("Camera.controller.Home", {
 
-		onInit: function () {
+		onInit: function() {
 			var oJsonModel = new JSONModel({
                 photos: []
             })
 			
-			this.getView().setModel(oJsonModel);
+			this.getView().setModel( oJsonModel );
             this.byId("buttonUndoSnapshot").setEnabled(false);
 		},
 
@@ -31,18 +31,31 @@ sap.ui.define([
         },
    
         /**
-         * Switch rendering the camera by button press.
+         * Switch back / front camera by switch button press.
          * @param {object} name
          * @returns {object}
          */		
 		onSwitchCamera: function (oEvent) {
+			var oCamera = this.getView().byId("idCamera"); 
+			var oSelectedCamera = oEvent.getParameter("selectedIndex");
+			
+			oCamera.onAfterRendering(oSelectedCamera); 
+		},
+
+        /**
+         * Switch rendering the camera by button press.
+         * @param {object} name
+         * @returns {object}
+         */		
+		onTurnOnOffCamera: function(oEvent) {
 			var oCamera = this.getView().byId("idCamera");
 			
-			if (!oEvent.getParameters().state) { 
-				oCamera.stopCamera();
-			} 
-				
-			oCamera.rerender();
+			if (oEvent.getParameters().state) {
+				oCamera.rerender();
+				return;
+			}
+			
+			oCamera.stopCamera();
 		},
 		
         /**
@@ -55,12 +68,13 @@ sap.ui.define([
 			var oPhotos = oModel.getProperty("/photos");
 			
 			oPhotos.splice(0,1);
-			
-			if (!oPhotos.length) {
-				oEvent.getSource().setEnabled(false);
+
+			if (oPhotos.length) {
+				oEvent.getSource().setEnabled(true);
+				return;
 			}
+			oEvent.getSource().setEnabled(false);
 			
-			oEvent.getSource().setEnabled(true);
 			oModel.refresh(true);
 		},
 		
@@ -71,7 +85,7 @@ sap.ui.define([
          */			
 		onSavePicture: function (oEvent) {
 			var download = document.createElement("a");
-			
+
 			download.href = oEvent.getSource().getSrc();
 			download.download = "image"+(Math.floor(Math.random() * (8999)) + 1000)+".png";
 			download.click();
